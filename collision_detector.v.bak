@@ -1,0 +1,37 @@
+module collision_detect(clk50, box_x, box_y, col1_op, col2_op, col3_op, col4_op, col5_op, collided);
+
+	input clk50;
+	input [7:0] box_x;
+	input [6:0] box_y;
+	input [6:0] col1_op;
+	input [6:0] col2_op;
+	input [6:0] col3_op;
+	input [6:0] col4_op;
+	input [6:0] col5_op;
+	output collided;
+
+	localparam	COL1 = 8'd30,
+					COL2 = 8'd56,
+               COL3 = 8'd82,
+               COL4 = 8'd108,
+					COL5 = 8'd134,
+					OPENING = 5'd20,
+					
+
+	
+	always @(*) 
+		begin	
+			if ((box_x == COL1 || box_x == (COL1 + COL_WIDTH)) && (box_y < OPENING_COL1 || box_y > (OPENING_COL1 + OPENING)))
+				collided <= 1'b1;  
+			else if ((box_x == COL2 || box_x == (COL2 + COL_WIDTH)) && (box_y < OPENING_COL2 || box_y > (OPENING_COL2 + OPENING)))
+				collided <= 1'b1; 
+			else if ((box_x == COL3 || box_x == (COL3 + COL_WIDTH)) && (box_y < OPENING_COL3 || box_y > (OPENING_COL3 + OPENING)))
+				collided <= 1'b1; 
+			else if ((box_x == COL4 || box_x == (COL4 + COL_WIDTH)) && (box_y < OPENING_COL4 || box_y > (OPENING_COL4 + OPENING)))
+				collided <= 1'b1; 
+			else if ((box_x== COL5 || box_x == (COL5 + COL_WIDTH)) && (box_y < OPENING_COL5 || box_y > (OPENING_COL5 + OPENING)))
+				collided <= 1'b1; 
+		end
+
+
+endmodule

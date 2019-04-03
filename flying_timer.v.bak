@@ -1,0 +1,23 @@
+module flying_timer(down, key_press);
+	output reg down;
+	input key_press;
+	input clk50;
+	
+	reg [8:0] timer;
+	localparam FLYING_TIME = 28'd25000000;
+	
+	
+	always @(posedge clk50)
+	begin
+		if (!key_pressed) begin
+			timer = FLYING_TIME;
+			down <= 1'b1;
+			end
+		else if (timer == 8'd0)
+			down <= 1'b1;
+		else begin
+			down <= 1'b0;
+			timer <= timer - 1'b1;
+			end
+	end
+		

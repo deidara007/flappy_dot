@@ -1,0 +1,304 @@
+module flappy_dot
+	(
+		CLOCK_50,						//	On Board 50 MHz
+		// Your inputs and outputs here
+			LEDR,
+        KEY,
+        SW,
+		  HEX0,
+		  HEX1,
+		// The ports below are for the VGA output.  Do not change.
+		VGA_CLK,   						//	VGA Clock
+		VGA_HS,							//	VGA H_SYNC
+		VGA_VS,							//	VGA V_SYNC
+		VGA_BLANK_N,						//	VGA BLANK
+		VGA_SYNC_N,						//	VGA SYNC
+		VGA_R,   						//	VGA Red[9:0]
+		VGA_G,	 						//	VGA Green[9:0]
+		VGA_B   						//	VGA Blue[9:0]
+	);
+
+	input			CLOCK_50;				//	50 MHz
+	input   [17:0]   SW;
+	input   [3:0]   KEY;
+
+	// Declare your inputs and outputs here
+	// Do not change the following outputs
+	output			VGA_CLK;   				//	VGA Clock
+	output			VGA_HS;					//	VGA H_SYNC
+	output			VGA_VS;					//	VGA V_SYNC
+	output			VGA_BLANK_N;				//	VGA BLANK
+	output			VGA_SYNC_N;				//	VGA SYNC
+	output	[9:0]	VGA_R;   				//	VGA Red[9:0]
+	output	[9:0]	VGA_G;	 				//	VGA Green[9:0]
+	output	[9:0]	VGA_B;   				//	VGA Blue[9:0]
+	output [17:0] LEDR;
+	output [6:0] HEX0, HEX1;
+	wire resetn;
+	assign resetn = KEY[0];
+	
+	wire clk;
+	assign clk = CLOCK_50;
+
+	// Create the colour, x, y and writeEn wires that are inputs to the controller.
+	wire [2:0] colour;
+	wire [7:0] x;
+	wire [6:0] y;
+	wire writeEn;
+	wire [7:0] col_start;
+	wire [6:0] vert_dist;
+	wire hor_dist;
+
+	// Create an Instance of a VGA controller - there can be only one!
+	// Define the number of colours as well as the initial background
+	// image file (.MIF) for the controller.
+	vga_adapter VGA(
+			.resetn(resetn),
+			.clock(CLOCK_50),
+			.colour(colour),
+			.x(x),
+			.y(y),
+			.plot(writeEn),
+			/* Signals for the DAC to drive the monitor. */
+			.VGA_R(VGA_R),
+			.VGA_G(VGA_G),
+			.VGA_B(VGA_B),
+			.VGA_HS(VGA_HS),
+			.VGA_VS(VGA_VS),
+			.VGA_BLANK(VGA_BLANK_N),
+			.VGA_SYNC(VGA_SYNC_N),
+			.VGA_CLK(VGA_CLK));
+		defparam VGA.RESOLUTION = "160x120";
+		defparam VGA.MONOCHROME = "FALSE";
+		defparam VGA.BITS_PER_COLOUR_CHANNEL = 1;	
+		defparam VGA.BACKGROUND_IMAGE = "black.mif";
+		
+   // Instansiate datapath
+	// datapath d0(...);
+	datapath D0(
+		  .vert_dist(vert_dist),
+		  .hor_dist(hor_dist),
+		  .col_start(col_start),
+        .opening_pos(opening_pos),
+		  .x(x),
+		  .y(y),
+		  .colour_out(colour)
+    );
+	
+    // Instansiate FSM control
+    // control c0(...);
+	 draw_columns C0(
+        .clk(clk),
+        .resetn(SW[0]),
+        
+		  .vert_dist(vert_dist),
+		  .hor_dist(hor_dist),
+		  .col_start(col_start),
+        .opening_pos(opening_pos),
+		  .draw(writeEn),
+		  
+		  .current_state(cur_state),
+		  .random(random)
+		);
+
+	 // for debuging
+	 wire [3:0] cur_state;
+    hex_decoder H0(
+        .hex_digit(cur_state), 
+        .segments(HEX0)
+        );
+	 wire [1:0] random;
+	 hex_decoder H1(
+        .hex_digit(random), 
+        .segments(HEX1)
+        );
+	 wire [6:0] opening_pos;
+	 assign LEDR[15] = writeEn;
+	 assign LEDR[17] = hor_dist;
+
+ 	 assign LEDR[7:0] = x;
+	 assign LEDR[14:8] = opening_pos;
+	
+endmodule
+
+
+module draw_columns(
+	input resetn,
+	input clk,
+	output reg [7:0] col_start,
+	output reg [6:0] opening_pos,
+	output reg draw,
+	output reg [3:0] current_state,
+	output [6:0] vert_dist,
+	output hor_dist,
+	output go,
+	output [1:0] random,
+	output reg [6:0] col1_op, col2_op, col3_op, col4_op, col5_op,
+	output reg done_col
+	);
+	assign random = random_num[1:0];
+	reg [3:0] next_state;
+	
+	wire [7:0] counter;
+	assign vert_dist = counter[6:0];
+	assign hor_dist = counter[7];
+	wire [3:0] random_num;
+	
+	eight_bit_counter(
+		.q(counter),
+		.go(go),
+		.clk(clk),
+		.clr(resetn),
+		.enable(1'b1)
+	);
+	
+	random(
+		.out(random_num),
+		.clk(clk)
+	);
+	
+	localparam	COL1 = 8'd35,
+					COL2 = 8'd60,
+               COL3 = 8'd85,
+               COL4 = 8'd110,
+					COL5 = 8'd135,
+					COL_WIDTH = 2'd2,
+					OPENING = 5'd20,
+					
+					PRE_LOAD = 4'd0,
+					LOAD_COL1 = 4'd1,
+               LOAD_COL1_WAIT = 4'd2,
+               LOAD_COL2 = 4'd3,
+               LOAD_COL2_WAIT = 4'd4,
+					LOAD_COL3 = 4'd5,
+               LOAD_COL3_WAIT = 4'd6,
+					LOAD_COL4 = 4'd7,
+               LOAD_COL4_WAIT = 4'd8,
+					LOAD_COL5 = 4'd9,
+					LOAD_COL5_WAIT = 4'd10,
+					DONE = 4'd11;
+	// state_table
+	always@(*)
+    begin: state_table 
+            case (current_state)
+					 PRE_LOAD: next_state = LOAD_COL1;
+                LOAD_COL1: next_state = go ? LOAD_COL1_WAIT : LOAD_COL1;
+                LOAD_COL1_WAIT: next_state = go ? LOAD_COL1_WAIT : LOAD_COL2; 
+                LOAD_COL2: next_state = go ? LOAD_COL2_WAIT : LOAD_COL2; 
+                LOAD_COL2_WAIT: next_state = go ? LOAD_COL2_WAIT : LOAD_COL3;
+					 LOAD_COL3: next_state = go ? LOAD_COL3_WAIT : LOAD_COL3; 
+                LOAD_COL3_WAIT: next_state = go ? LOAD_COL3_WAIT : LOAD_COL4;
+                LOAD_COL4: next_state = go ? LOAD_COL4_WAIT : LOAD_COL4; 
+                LOAD_COL4_WAIT: next_state = go ? LOAD_COL4_WAIT : LOAD_COL5; 
+					 LOAD_COL5: next_state = go ? LOAD_COL5_WAIT : LOAD_COL5;
+					 LOAD_COL5_WAIT: next_state = DONE;
+					 DONE: next_state = DONE;
+				default:     next_state = PRE_LOAD;
+        endcase
+    end 
+	
+	 // current_state registers
+    always@(posedge clk)
+    begin: state_FFs
+        if(!resetn)
+            current_state <= PRE_LOAD;
+        else
+            current_state <= next_state;
+    end // state_FFS
+	
+	 // Output logic aka all of our datapath control signals
+    always @(*)
+    begin: enable_signals
+		  draw = 1'b1;
+		  done_col = 1'b0;
+		  
+        case (current_state)
+            LOAD_COL1: begin
+					col_start = COL1;
+					opening_pos = (random_num[1:0] + 1'b1)*OPENING;   
+					end
+				LOAD_COL1_WAIT: begin
+					col_start = COL1;
+					col1_op = opening_pos;
+					end
+            LOAD_COL2: begin
+					 col_start = COL2;
+					 opening_pos = (random_num[1:0] + 1'b1)*OPENING;
+					 end
+				LOAD_COL2_WAIT: begin
+					col_start = COL2;
+					col2_op = opening_pos;
+					end
+				LOAD_COL3: begin
+					col_start = COL3;
+					opening_pos = (random_num[1:0] + 1'b1)*OPENING;
+					end
+				LOAD_COL3_WAIT: begin
+					col_start = COL3;
+					col3_op = opening_pos;
+					end
+				LOAD_COL4: begin			
+					col_start = COL4;
+					opening_pos = (random_num[1:0] + 1'b1)*OPENING;
+					end
+				LOAD_COL4_WAIT: begin
+					col_start = COL4;
+					col4_op = opening_pos;
+					end
+				LOAD_COL5: begin
+					col_start = COL5;
+					opening_pos = (random_num[1:0] + 1'b1)*OPENING;
+					end
+				LOAD_COL5_WAIT: begin
+					col_start = COL5;
+					col5_op = opening_pos;
+					end
+				DONE: begin
+					done_col = 1'b1;
+					end
+        endcase
+    end // enable_signals
+endmodule
+
+module datapath(
+	 input hor_dist,
+	 input [6:0] vert_dist,
+	 input [7:0] col_start,
+	 input [6:0] opening_pos,
+	 output [6:0] y,
+	 output [7:0] x,
+	 output reg [2:0] colour_out
+    );
+	 assign x = col_start + hor_dist;
+	 assign y = vert_dist;
+    always@(*)
+	 begin
+		 if (vert_dist >= opening_pos && vert_dist <= opening_pos + 7'd30)
+			colour_out = 3'b000;
+		 else
+			colour_out = 3'b111;
+	 end
+	 
+endmodule
+
+module eight_bit_counter(q, go, clr, clk, enable);
+   input enable, clk, clr;
+	output reg [7:0] q;
+	output reg go;
+    
+   always@(posedge clk, negedge clr)
+   begin
+	if (clr == 1'b0) begin
+	   q <= 8'd0;
+		go <= 1'b1;
+		end
+	else if (q == 8'b11111111) begin
+		q <= 8'd0;
+		go <= 1'b0;
+		end
+	else if (enable == 1'b1) begin
+	   q <= q + 1'b1;
+		go <= 1'b1;
+		end
+	end
+endmodule

@@ -1,0 +1,30 @@
+module dot_cord(dot_y_cord, dot_x_cord, dot_clk, up, collided);
+	input dot_clk;
+	input up;
+	input collided;
+	output reg [6:0] dot_y_cord = 7'd59;
+	output reg [7:0] dot_x_cord = 8'd0;
+	
+	always @(posedge dot_clk)
+	begin
+		if (collided) begin
+			// reset the coordinate of th edot if it collided with a pipe
+			dot_y_cord <= 7'd59;
+			dot_x_cord <= 8'd0;
+			end
+		else if (dot_x_cord == 8'd160) begin
+			dot_x_cord <= 8'd0;
+			end
+		else if (up) begin
+			// if up key is held, make the dot go u and right
+			dot_y_cord <= dot_y_cord + 1;
+			dot_x_cord <= dot_x_cord + 1;
+			end
+		else begin
+			// on default - key not pressed, the dot fall, and moves right
+			dot_y_cord <= dot_y_cord - 1;
+			dot_x_cord <= dot_x_cord + 1;
+			end
+	end
+
+endmodule

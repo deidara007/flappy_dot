@@ -1,0 +1,7 @@
+module high_score_keeper(high_score, cur_score, dot_clk);
+	output reg [7:0] high_score;
+	input [7:0] cur_score;
+	input dot_clk;
+	
+	
+endmodule

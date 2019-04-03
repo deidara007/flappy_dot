@@ -1,0 +1,353 @@
+------------------------------------------------------------
+TimeQuest Timing Analyzer Summary
+------------------------------------------------------------
+
+Type  : Slow 1200mV 85C Model Setup 'dot_obj:comb_4|control_dot:c0|dot_clk'
+Slack : -6.523
+TNS   : -176.245
+
+Type  : Slow 1200mV 85C Model Setup 'CLOCK_50'
+Slack : -6.255
+TNS   : -163.331
+
+Type  : Slow 1200mV 85C Model Setup 'columns:comb_3|col_control:C0|current_state.DONE'
+Slack : -2.795
+TNS   : -7.920
+
+Type  : Slow 1200mV 85C Model Setup 'columns:comb_3|col_control:C0|current_state.LOAD_COL4_WAIT'
+Slack : -2.731
+TNS   : -9.725
+
+Type  : Slow 1200mV 85C Model Setup 'columns:comb_3|col_control:C0|current_state.LOAD_COL3_WAIT'
+Slack : -2.149
+TNS   : -7.557
+
+Type  : Slow 1200mV 85C Model Setup 'columns:comb_3|col_control:C0|current_state.LOAD_COL1_WAIT'
+Slack : -2.099
+TNS   : -7.428
+
+Type  : Slow 1200mV 85C Model Setup 'columns:comb_3|col_control:C0|current_state.LOAD_COL2_WAIT'
+Slack : -1.704
+TNS   : -5.457
+
+Type  : Slow 1200mV 85C Model Setup 'columns:comb_3|col_control:C0|current_state.LOAD_COL1'
+Slack : -1.000
+TNS   : -3.669
+
+Type  : Slow 1200mV 85C Model Setup 'VGA|mypll|altpll_component|pll|clk[0]'
+Slack : 32.666
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'columns:comb_3|col_control:C0|current_state.LOAD_COL1'
+Slack : 0.168
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'VGA|mypll|altpll_component|pll|clk[0]'
+Slack : 0.378
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'CLOCK_50'
+Slack : 0.385
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'dot_obj:comb_4|control_dot:c0|dot_clk'
+Slack : 0.386
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'columns:comb_3|col_control:C0|current_state.LOAD_COL2_WAIT'
+Slack : 0.612
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'columns:comb_3|col_control:C0|current_state.LOAD_COL3_WAIT'
+Slack : 1.092
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'columns:comb_3|col_control:C0|current_state.LOAD_COL1_WAIT'
+Slack : 1.117
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'columns:comb_3|col_control:C0|current_state.DONE'
+Slack : 1.368
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'columns:comb_3|col_control:C0|current_state.LOAD_COL4_WAIT'
+Slack : 1.655
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Recovery 'CLOCK_50'
+Slack : -1.194
+TNS   : -10.746
+
+Type  : Slow 1200mV 85C Model Removal 'CLOCK_50'
+Slack : 1.005
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'dot_obj:comb_4|control_dot:c0|dot_clk'
+Slack : -1.285
+TNS   : -41.120
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'columns:comb_3|col_control:C0|current_state.LOAD_COL1'
+Slack : 0.368
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'columns:comb_3|col_control:C0|current_state.LOAD_COL3_WAIT'
+Slack : 0.395
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'columns:comb_3|col_control:C0|current_state.DONE'
+Slack : 0.405
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'columns:comb_3|col_control:C0|current_state.LOAD_COL1_WAIT'
+Slack : 0.431
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'columns:comb_3|col_control:C0|current_state.LOAD_COL4_WAIT'
+Slack : 0.439
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'columns:comb_3|col_control:C0|current_state.LOAD_COL2_WAIT'
+Slack : 0.441
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'CLOCK_50'
+Slack : 9.629
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'VGA|mypll|altpll_component|pll|clk[0]'
+Slack : 19.708
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Setup 'dot_obj:comb_4|control_dot:c0|dot_clk'
+Slack : -5.919
+TNS   : -159.221
+
+Type  : Slow 1200mV 0C Model Setup 'CLOCK_50'
+Slack : -5.639
+TNS   : -147.270
+
+Type  : Slow 1200mV 0C Model Setup 'columns:comb_3|col_control:C0|current_state.LOAD_COL4_WAIT'
+Slack : -2.419
+TNS   : -8.541
+
+Type  : Slow 1200mV 0C Model Setup 'columns:comb_3|col_control:C0|current_state.DONE'
+Slack : -2.393
+TNS   : -6.800
+
+Type  : Slow 1200mV 0C Model Setup 'columns:comb_3|col_control:C0|current_state.LOAD_COL3_WAIT'
+Slack : -1.871
+TNS   : -6.498
+
+Type  : Slow 1200mV 0C Model Setup 'columns:comb_3|col_control:C0|current_state.LOAD_COL1_WAIT'
+Slack : -1.839
+TNS   : -6.475
+
+Type  : Slow 1200mV 0C Model Setup 'columns:comb_3|col_control:C0|current_state.LOAD_COL2_WAIT'
+Slack : -1.476
+TNS   : -4.624
+
+Type  : Slow 1200mV 0C Model Setup 'columns:comb_3|col_control:C0|current_state.LOAD_COL1'
+Slack : -0.972
+TNS   : -3.608
+
+Type  : Slow 1200mV 0C Model Setup 'VGA|mypll|altpll_component|pll|clk[0]'
+Slack : 33.356
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'columns:comb_3|col_control:C0|current_state.LOAD_COL1'
+Slack : 0.255
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'CLOCK_50'
+Slack : 0.338
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'dot_obj:comb_4|control_dot:c0|dot_clk'
+Slack : 0.338
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'VGA|mypll|altpll_component|pll|clk[0]'
+Slack : 0.354
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'columns:comb_3|col_control:C0|current_state.LOAD_COL2_WAIT'
+Slack : 0.551
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'columns:comb_3|col_control:C0|current_state.LOAD_COL3_WAIT'
+Slack : 0.976
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'columns:comb_3|col_control:C0|current_state.LOAD_COL1_WAIT'
+Slack : 1.002
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'columns:comb_3|col_control:C0|current_state.DONE'
+Slack : 1.212
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'columns:comb_3|col_control:C0|current_state.LOAD_COL4_WAIT'
+Slack : 1.489
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Recovery 'CLOCK_50'
+Slack : -1.027
+TNS   : -9.243
+
+Type  : Slow 1200mV 0C Model Removal 'CLOCK_50'
+Slack : 0.946
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'dot_obj:comb_4|control_dot:c0|dot_clk'
+Slack : -1.285
+TNS   : -41.120
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'columns:comb_3|col_control:C0|current_state.LOAD_COL1_WAIT'
+Slack : 0.422
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'columns:comb_3|col_control:C0|current_state.LOAD_COL1'
+Slack : 0.430
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'columns:comb_3|col_control:C0|current_state.LOAD_COL2_WAIT'
+Slack : 0.446
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'columns:comb_3|col_control:C0|current_state.DONE'
+Slack : 0.463
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'columns:comb_3|col_control:C0|current_state.LOAD_COL3_WAIT'
+Slack : 0.463
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'columns:comb_3|col_control:C0|current_state.LOAD_COL4_WAIT'
+Slack : 0.468
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'CLOCK_50'
+Slack : 9.648
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'VGA|mypll|altpll_component|pll|clk[0]'
+Slack : 19.711
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Setup 'dot_obj:comb_4|control_dot:c0|dot_clk'
+Slack : -3.130
+TNS   : -79.619
+
+Type  : Fast 1200mV 0C Model Setup 'CLOCK_50'
+Slack : -2.924
+TNS   : -68.562
+
+Type  : Fast 1200mV 0C Model Setup 'columns:comb_3|col_control:C0|current_state.DONE'
+Slack : -1.488
+TNS   : -3.921
+
+Type  : Fast 1200mV 0C Model Setup 'columns:comb_3|col_control:C0|current_state.LOAD_COL4_WAIT'
+Slack : -0.919
+TNS   : -3.047
+
+Type  : Fast 1200mV 0C Model Setup 'columns:comb_3|col_control:C0|current_state.LOAD_COL3_WAIT'
+Slack : -0.590
+TNS   : -1.843
+
+Type  : Fast 1200mV 0C Model Setup 'columns:comb_3|col_control:C0|current_state.LOAD_COL1_WAIT'
+Slack : -0.549
+TNS   : -1.714
+
+Type  : Fast 1200mV 0C Model Setup 'columns:comb_3|col_control:C0|current_state.LOAD_COL2_WAIT'
+Slack : -0.344
+TNS   : -0.696
+
+Type  : Fast 1200mV 0C Model Setup 'columns:comb_3|col_control:C0|current_state.LOAD_COL1'
+Slack : -0.170
+TNS   : -0.415
+
+Type  : Fast 1200mV 0C Model Setup 'VGA|mypll|altpll_component|pll|clk[0]'
+Slack : 36.413
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'VGA|mypll|altpll_component|pll|clk[0]'
+Slack : 0.158
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'columns:comb_3|col_control:C0|current_state.LOAD_COL1'
+Slack : 0.166
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'dot_obj:comb_4|control_dot:c0|dot_clk'
+Slack : 0.173
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'CLOCK_50'
+Slack : 0.174
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'columns:comb_3|col_control:C0|current_state.LOAD_COL2_WAIT'
+Slack : 0.266
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'columns:comb_3|col_control:C0|current_state.LOAD_COL1_WAIT'
+Slack : 0.511
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'columns:comb_3|col_control:C0|current_state.LOAD_COL3_WAIT'
+Slack : 0.532
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'columns:comb_3|col_control:C0|current_state.DONE'
+Slack : 0.678
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'columns:comb_3|col_control:C0|current_state.LOAD_COL4_WAIT'
+Slack : 0.831
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Recovery 'CLOCK_50'
+Slack : -0.338
+TNS   : -3.042
+
+Type  : Fast 1200mV 0C Model Removal 'CLOCK_50'
+Slack : 0.415
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'dot_obj:comb_4|control_dot:c0|dot_clk'
+Slack : -1.000
+TNS   : -32.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'columns:comb_3|col_control:C0|current_state.DONE'
+Slack : 0.253
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'columns:comb_3|col_control:C0|current_state.LOAD_COL1'
+Slack : 0.288
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'columns:comb_3|col_control:C0|current_state.LOAD_COL2_WAIT'
+Slack : 0.312
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'columns:comb_3|col_control:C0|current_state.LOAD_COL1_WAIT'
+Slack : 0.322
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'columns:comb_3|col_control:C0|current_state.LOAD_COL3_WAIT'
+Slack : 0.342
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'columns:comb_3|col_control:C0|current_state.LOAD_COL4_WAIT'
+Slack : 0.360
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'CLOCK_50'
+Slack : 9.372
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'VGA|mypll|altpll_component|pll|clk[0]'
+Slack : 19.754
+TNS   : 0.000
+
+------------------------------------------------------------

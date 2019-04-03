@@ -1,0 +1,121 @@
+module dot_obj(dot_x, dot_y, dot_colour, dot_collided, dot_up);
+	// Create the colour, x, y and writeEn wires that are inputs to the controller.
+	output [2:0] dot_colour;
+	output [7:0] dot_x;
+	output [6:0] dot_y;
+	input dot_collided;
+	input dot_up;
+	
+	wire erase;
+	wire dot_clk;
+	wire [7:0] dot_x_cord;
+	wire [6:0] dot_y_cord;
+
+	dot_cord dc(
+			.dot_clk(dot_clk),
+			.up(dot_up),
+			.collided(1'b0),
+			.dot_y_cord(dot_y_cord),
+			.dot_x_cord(dot_x_cord)
+			);
+			
+    // Instansiate datapath
+	datapath_dot d0(
+			 .erase(erase),
+			 .x(dot_x_cord),
+			 .y(dot_y_cord),
+			 .x_out(dot_x),
+		    .y_out(dot_y),
+		    .col_out(dot_colour)
+			 );
+	
+    // Instansiate FSM control
+	control_dot c0(
+			.erase(erase),
+			.clk(clk),
+			.dot_clk(dot_clk)
+			);
+
+	
+endmodule
+
+module datapath_dot(erase, x, y, x_out, y_out, col_out);
+	input erase;
+	input [7:0] x;
+	input [6:0] y;
+	output [7:0] x_out;
+	output [6:0] y_out;
+	output reg [2:0] col_out;
+
+	always@(*)
+	 begin
+		 if (erase == 1'b1)
+			col_out = 3'b000;
+		 else
+			col_out = 3'b101;
+	 end
+	
+	assign x_out = x;
+	assign y_out = y;
+endmodule
+
+module control_dot(dot_clk, erase, clk);
+	input clk;
+	output reg erase;
+	output reg dot_clk = 1'b0;
+
+	reg [3:0] current_state;
+	reg [3:0] next_state;
+	wire update_clk;
+	
+	rate_divider(
+			.CLOCK_50(clk),
+			.rate(28'd2000000),
+			.update_clk(update_clk)
+			);
+	
+	
+	localparam	ERASE = 4'd0,
+					ERASE_DONE = 4'd1,
+					DRAW_WAIT = 4'd2,
+					DRAW = 4'd3;
+	// state_table
+	always@(*)
+    begin: state_table 
+            case (current_state)
+						ERASE: next_state = ERASE_DONE;
+						ERASE_DONE: next_state = DRAW_WAIT;
+						DRAW_WAIT: next_state = update_clk ? DRAW : DRAW_WAIT;
+						DRAW: next_state = ERASE;
+				default:     next_state = ERASE;
+        endcase
+    end 
+	
+	 // current_state registers
+    always@(posedge clk)
+    begin: state_FFs
+			current_state <= next_state;
+    end // state_FFS
+	
+	 // Output logic aka all of our datapath control signals
+    always @(posedge clk)
+    begin: enable_signals
+			erase <= 1'b1;
+			case (current_state)
+				ERASE: begin
+						erase <= 1'b1;
+						end
+				ERASE_DONE: begin
+						erase <= 1'b1;
+						dot_clk <= ~dot_clk;
+						end
+				DRAW_WAIT: begin
+						erase <= 1'b0;
+						end
+				DRAW: begin
+						erase <= 1'b0;
+						dot_clk <= ~dot_clk;
+						end
+        endcase
+    end // enable_signals	
+endmodule

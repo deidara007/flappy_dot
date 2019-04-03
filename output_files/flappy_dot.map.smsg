@@ -1,0 +1,2 @@
+Info (10281): Verilog HDL Declaration information at dot_obj.v(99): object "erase" differs only in case from object "ERASE" in the same scope File: /cmshome/nguy1924/cscb58/project/dot_obj.v Line: 99
+Warning (10268): Verilog HDL information at flying_timer.v(10): always construct contains both blocking and non-blocking assignments File: /cmshome/nguy1924/cscb58/project/flying_timer.v Line: 10
